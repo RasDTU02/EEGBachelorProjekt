@@ -43,22 +43,18 @@ def play_audio_period(duration, speechtext):
     """Plays the audio for the specified duration, with random breaks."""
     pygame.mixer.init()
     
-    # Create the gTTS object and generate the audio
     speech = gTTS(text=speechtext, lang='da', slow=False)
     audio_buffer = BytesIO()
     speech.write_to_fp(audio_buffer)
 
-    # Move the buffer's position to the beginning
     audio_buffer.seek(0)
 
-    # Load the audio into Pygame mixer from BytesIO
     pygame.mixer.music.load(audio_buffer, 'mp3')
 
-    # Start playing the audio
     start_time = pygame.time.get_ticks()
 
     while (pygame.time.get_ticks() - start_time) < (duration * 1000):
-        show_close_your_eyes()  # Show 'Close your eyes' message
+        show_close_your_eyes() 
         pygame.mixer.music.play()
 
         while pygame.mixer.music.get_busy():
@@ -77,18 +73,16 @@ def show_finish():
 
 def display_round(round_num, round_text):
     """Displays the current round number and round description at the top of the screen."""
-    screen.fill(white)  # Only clear the screen once
+    screen.fill(white) 
     round_text_surf = small_font.render(f'Round {round_num}: {round_text}', True, black)
     screen.blit(round_text_surf, (20, 20))
 
-# Main game loop
 running = True
 audio_started = False
 round_num = 1
 round_texts = ["Unfamiliar voice", "Familiar voice"]
 
 while running:
-    # Draw the initial state of the screen
     display_round(round_num, round_texts[round_num - 1])
     draw_button("Start")
     pygame.display.flip()
