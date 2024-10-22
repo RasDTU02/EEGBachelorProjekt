@@ -33,5 +33,3 @@ print(raw.info)
 #spectrum = raw.compute_psd()
 #spectrum.plot(average=True, picks="data", exclude="bads", amplitude=False)
 
-
-
